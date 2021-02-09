@@ -1,58 +1,41 @@
-import React from "react";
-import { Card, Col, Form } from "react-bootstrap";
+import { Col } from "antd";
+import React, { Dispatch, SetStateAction, useContext, useState } from "react";
+import Inputs from "./Inputs";
+import TransactionsContainer from "./transactions/TransactionsContainer";
+import { ExportTrackerContext } from "./../../context/Context";
+
+const initialState = {
+  type: "income",
+  category: "",
+  amount: 0,
+  date: "",
+  id: "",
+};
+
+export type TContextProps = {
+  transactions: {
+    incomes: [];
+    expenses: [];
+  };
+  setTransactions: Dispatch<SetStateAction<{ incomes: []; expenses: [] }>>;
+};
 
 export default function UsersArea() {
+  const [transactionToCreate, setTransactionToCreate] = useState(initialState);
+  const contextProps = useContext(ExportTrackerContext) as TContextProps;
   return (
     <>
-      <Col className="m-2 p-0 transparent" xs={6}>
-        <Card className="transparent" style={{ width: "100%" }}>
-          <Card.Body className="transparent">
-            <Card.Title>Expence Tracker</Card.Title>
-            <h4>Total Balance $12123</h4>
-            <p>
-              Try saying Add Expense for $50 in category travel for thursday
-            </p>
-            <hr />
-            <Form>
-              <Form.Group
-                className="d-flex"
-                controlId="exampleForm.SelectCustom"
-              >
-                <Form.Label className="text-muted">Type</Form.Label>
-                <Form.Control as="select" custom>
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                  <option>5</option>
-                </Form.Control>
-                <Form.Label className="text-muted">Category</Form.Label>
-                <Form.Control as="select" custom>
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                  <option>5</option>
-                </Form.Control>
-              </Form.Group>
-              <Form.Group
-                className="d-flex"
-                controlId="exampleForm.SelectCustom"
-              >
-                <Form.Label className="text-muted">Amount</Form.Label>
-                <Form.Control as="select" custom>
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                  <option>5</option>
-                </Form.Control>
-                <Form.Label className="text-muted">Date</Form.Label>
-                <Form.Control type="date" custom></Form.Control>
-              </Form.Group>
-            </Form>
-          </Card.Body>
-        </Card>
+      <Col
+        className="transparent"
+        xs={{ span: 11, offset: 1 }}
+        lg={{ span: 6, offset: 2 }}
+      >
+        <Inputs
+          setTransactionToCreate={setTransactionToCreate}
+          transactionToCreate={transactionToCreate}
+          contextProps={contextProps}
+        />
+        <TransactionsContainer transactions={contextProps.transactions} />
       </Col>
     </>
   );

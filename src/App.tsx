@@ -1,21 +1,21 @@
 import React from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
+
+import Chart from "./components/chart/Chart";
+import { Col, Row } from "antd";
+
 import "./App.css";
 import UsersArea from "./components/Main/UsersArea";
-import { Container, Row } from "react-bootstrap";
-import Details from "./components/chart/Chart";
+import { Provider } from "./context/Context";
 
 function App() {
   return (
-    <>
-      <Container>
-        <Row>
-          <Details title="Expense" />
-          <UsersArea />
-          <Details title="Income" />
-        </Row>
-      </Container>
-    </>
+    <Provider>
+      <Row className="wrapper">
+        <Chart title="Income" />
+        <UsersArea />
+        <Chart title="Expense" />
+      </Row>
+    </Provider>
   );
 }
 

@@ -1,18 +1,23 @@
-import React from "react";
-import { Col } from "react-bootstrap";
+import { Col } from "antd";
+import React, { useContext } from "react";
+import { ExportTrackerContext } from "../../context/Context";
 
 export type PropVal = {
   title: string;
 };
 
-const Details = (props: PropVal) => {
+const Chart = (props: PropVal) => {
   return (
     <>
-      <Col className=" m-2 transparent">
-        <h4 className="text-center">{props.title}</h4>
+      <Col
+        className="transparent"
+        xs={{ span: 5, offset: 1 }}
+        lg={{ span: 6, offset: 2 }}
+      >
+        <h4>{props.title}</h4>
       </Col>
     </>
   );
 };
 
-export default Details;
+export default Chart;

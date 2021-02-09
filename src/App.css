@@ -1,19 +1,44 @@
+@import "~antd/dist/antd.css";
+
 :root,
 html,
 body {
+  padding: 0;
   height: 100%;
   margin: 0;
 }
 body {
-  background: linear-gradient(rgba(56, 54, 54, 0.151), rgba(37, 37, 37, 0.562)),
-    url(https://imgur.com/t2RrQwO.png);
-  background-repeat: no-repeat;
-  background-size: auto 100%;
-  background-position: center;
+  background: linear-gradient(
+      rgba(106, 137, 145, 0.404),
+      rgba(158, 202, 207, 0.603)
+    ),
+    linear-gradient(
+      to right,
+      rgba(161, 113, 147, 0.541),
+      rgba(204, 172, 169, 0.541),
+      rgba(240, 198, 229, 0.849),
+      rgba(195, 238, 195, 0.336)
+    ),
+    linear-gradient(45deg, rgba(201, 105, 142, 0.486), #ec99c781);
+  align-items: center;
+}
+.wrapper {
+  width: 95%;
+  height: 95vh;
   display: flex;
-  justify-content: center;
   align-items: center;
 }
 .transparent {
-  background-color: rgba(195, 206, 206, 0.712);
+  background-color: rgb(84, 153, 214);
+}
+input,
+select:focus,
+select:active {
+  outline: none;
+  border: none;
+}
+
+.income {
+  border: 2px solid rgb(8, 218, 8);
+  color: rgb(78, 129, 78);
 }
