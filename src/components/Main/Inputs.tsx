@@ -1,26 +1,18 @@
 import { Button } from "antd";
-import React, { ChangeEvent, Dispatch, FormEvent } from "react";
+import React, { ChangeEvent, Dispatch, FormEvent, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 import {
   incomeCategories,
   expenseCategories,
 } from "../../utils/categoriesConstants";
-import { addTransaction } from "./transactions/addTransaction";
+import { addTransaction } from "./transactions/utils/addTransaction";
+import { initialValue } from "../../utils/categoriesConstants";
 
 export type ITransaction = {
-  transactionToCreate: {
-    type: string;
-    category: string;
-    amount: number;
-    date: string;
-    id: string;
-  };
-  setTransactionToCreate: Dispatch<React.SetStateAction<any>>;
   contextProps: {
     transactions: {
-      incomes: [];
-      expenses: [];
+      transactions: [];
     };
     setTransactions: Dispatch<
       React.SetStateAction<{ incomes: []; expenses: [] }>
@@ -29,14 +21,38 @@ export type ITransaction = {
 };
 
 export default function Inputs(props: ITransaction) {
-  const { transactionToCreate, setTransactionToCreate, contextProps } = props;
+  const { contextProps } = props;
+
+  const [transactionToCreate, setTransactionToCreate] = useState(initialValue);
+
   function handleChange(e: ChangeEvent<any>) {
     const prop = e.target.id;
-    setTransactionToCreate({ ...transactionToCreate, [prop]: e.target.value });
+    if (prop === "amount") {
+      return setTransactionToCreate({
+        ...transactionToCreate,
+        [prop]: parseInt(e.target.value),
+      });
+    }
+
+    setTransactionToCreate({
+      ...transactionToCreate,
+      [prop]: e.target.value,
+    });
+    if (
+      transactionToCreate.type === "expense" &&
+      transactionToCreate.category === "Business"
+    ) {
+      console.log("issue hherer");
+      setTransactionToCreate({
+        ...transactionToCreate,
+        category: "Bills",
+      });
+    }
   }
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
-    transactionToCreate.id = uuidv4();
     e.preventDefault();
+    const uuid = uuidv4();
+    setTransactionToCreate({ ...transactionToCreate, id: uuid });
     addTransaction(
       transactionToCreate,
       contextProps.transactions,
@@ -45,7 +61,7 @@ export default function Inputs(props: ITransaction) {
   }
   return (
     <>
-      <h3>Expence Tracker</h3>
+      <h3>Expense Tracker</h3>
       <h5>Powered by speechly</h5>
       <p>
         Lorem ipsum, dolor sit amet consectetur adipisicing elit. Explicabo
@@ -66,7 +82,9 @@ export default function Inputs(props: ITransaction) {
                   <option value={c.type}>{c.type}</option>
                 ))
               : expenseCategories.map((c) => (
-                  <option value={c.type}>{c.type}</option>
+                  <option defaultValue="Bills" value={c.type}>
+                    {c.type}
+                  </option>
                 ))}
           </select>
         </div>

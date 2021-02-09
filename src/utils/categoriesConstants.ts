@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from "uuid";
+
 const incomeColors = [
   "#123123",
   "#154731",
@@ -52,4 +54,12 @@ export const expenseCategories = [
 export const resetCategories = () => {
   incomeCategories.forEach((c) => (c.amount = 0));
   expenseCategories.forEach((c) => (c.amount = 0));
+};
+
+export const initialValue = {
+  type: "income",
+  category: "Business",
+  amount: 0,
+  date: "dd-mm-yyyy",
+  id: uuidv4(),
 };

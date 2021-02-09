@@ -3,25 +3,16 @@ import React, { Dispatch, SetStateAction, useContext, useState } from "react";
 import Inputs from "./Inputs";
 import TransactionsContainer from "./transactions/TransactionsContainer";
 import { ExportTrackerContext } from "./../../context/Context";
-
-const initialState = {
-  type: "income",
-  category: "Business",
-  amount: 0,
-  date: "dd-mm-yyyy",
-  id: "",
-};
+import { v4 as uuidv4 } from "uuid";
 
 export type TContextProps = {
   transactions: {
-    incomes: [];
-    expenses: [];
+    transactions: [];
   };
   setTransactions: Dispatch<SetStateAction<{ incomes: []; expenses: [] }>>;
 };
 
 export default function UsersArea() {
-  const [transactionToCreate, setTransactionToCreate] = useState(initialState);
   const contextProps = useContext(ExportTrackerContext) as TContextProps;
   return (
     <>
@@ -30,11 +21,7 @@ export default function UsersArea() {
         xs={{ span: 11, offset: 1 }}
         lg={{ span: 6, offset: 2 }}
       >
-        <Inputs
-          setTransactionToCreate={setTransactionToCreate}
-          transactionToCreate={transactionToCreate}
-          contextProps={contextProps}
-        />
+        <Inputs contextProps={contextProps} />
         <TransactionsContainer transactions={contextProps.transactions} />
       </Col>
     </>

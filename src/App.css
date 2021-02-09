@@ -9,15 +9,15 @@ body {
 }
 body {
   background: linear-gradient(
-      rgba(106, 137, 145, 0.404),
-      rgba(158, 202, 207, 0.603)
+      rgba(106, 137, 145, 0.288),
+      rgba(158, 202, 207, 0.301)
     ),
     linear-gradient(
       to right,
-      rgba(161, 113, 147, 0.541),
-      rgba(204, 172, 169, 0.541),
-      rgba(240, 198, 229, 0.849),
-      rgba(195, 238, 195, 0.336)
+      rgba(161, 113, 147, 0.438),
+      rgba(204, 172, 169, 0.377),
+      rgba(240, 198, 229, 0.521),
+      rgba(195, 238, 195, 0.219)
     ),
     linear-gradient(45deg, rgba(201, 105, 142, 0.486), #ec99c781);
   align-items: center;
@@ -49,4 +49,14 @@ select:active {
 }
 .card-container {
   overflow-y: scroll;
+}
+
+.transaction-container {
+  margin: 0.5rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.ant-card-body {
+  padding: 0;
 }

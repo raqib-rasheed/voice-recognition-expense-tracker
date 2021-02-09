@@ -5,23 +5,22 @@ import SingleTransaction from "./SingleTransaction";
 
 export type ITransaction = {
   transactions: {
-    incomes: [];
-    expenses: [];
+    transactions: [];
   };
 };
 
 const TransactionsContainer = (props: ITransaction) => {
   const {
-    transactions: { expenses, incomes },
+    transactions: { transactions },
   } = props;
   return (
     <>
-      {expenses.length || incomes.length > 0 ? (
+      {transactions.length > 0 ? (
         <Card
           className="card-container"
           style={{ width: "100%", height: "5rem" }}
         >
-          <SingleTransaction incomes={incomes} expenses={expenses} />
+          <SingleTransaction />
         </Card>
       ) : (
         <></>
