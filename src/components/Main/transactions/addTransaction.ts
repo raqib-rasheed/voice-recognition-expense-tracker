@@ -21,6 +21,10 @@ export function addTransaction(
     let updatedIncomes = transactions?.incomes?.slice();
     updatedIncomes.push(newT);
     setterFn({ ...transactions, incomes: updatedIncomes });
+  } else {
+    let updatedExpenses = transactions?.expenses?.slice();
+    updatedExpenses.push(newT);
+    setterFn({ ...transactions, expenses: updatedExpenses });
   }
   analyseNetValue(transactions);
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import { DollarCircleOutlined } from "@ant-design/icons";
+import { DeleteOutlined, DollarCircleOutlined } from "@ant-design/icons";
 
 type TtransactionValues = {
   type: string;
@@ -15,9 +15,30 @@ interface ITransactions {
 }
 
 export default function SingleTransaction(props: ITransactions) {
+  const { expenses, incomes } = props;
+  console.log(incomes[0]?.category);
   return (
     <>
-      <DollarCircleOutlined />
+      {incomes.map((item) => {
+        return (
+          <div id={item.id}>
+            <DollarCircleOutlined className="income" />
+            <h6>{item.category}</h6>
+            <span>{item.amount}</span>
+            <DeleteOutlined id={item.id} />
+          </div>
+        );
+      })}
+      {expenses.map((item) => {
+        return (
+          <div id={item.id}>
+            <DollarCircleOutlined className="expense" />
+            <h6>{item.category}</h6>
+            <span>{item.amount}</span>
+            <DeleteOutlined id={item.id} />
+          </div>
+        );
+      })}
     </>
   );
 }

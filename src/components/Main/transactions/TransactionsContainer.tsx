@@ -17,7 +17,10 @@ const TransactionsContainer = (props: ITransaction) => {
   return (
     <>
       {expenses.length || incomes.length > 0 ? (
-        <Card style={{ width: "100%", height: "5rem" }}>
+        <Card
+          className="card-container"
+          style={{ width: "100%", height: "5rem" }}
+        >
           <SingleTransaction incomes={incomes} expenses={expenses} />
         </Card>
       ) : (

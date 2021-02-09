@@ -1,12 +1,4 @@
-import React, {
-  createContext,
-  FC,
-  useState,
-  Dispatch,
-  SetStateAction,
-} from "react";
-
-import { TContextProps } from "../components/Main/UsersArea";
+import React, { createContext, FC, useState } from "react";
 
 export const ExportTrackerContext = createContext({});
 export const Provider: FC = ({ children }) => {

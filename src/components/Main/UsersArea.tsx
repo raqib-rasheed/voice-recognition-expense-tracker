@@ -6,9 +6,9 @@ import { ExportTrackerContext } from "./../../context/Context";
 
 const initialState = {
   type: "income",
-  category: "",
+  category: "Business",
   amount: 0,
-  date: "",
+  date: "dd-mm-yyyy",
   id: "",
 };
 

@@ -42,3 +42,11 @@ select:active {
   border: 2px solid rgb(8, 218, 8);
   color: rgb(78, 129, 78);
 }
+
+.expense {
+  border: 2px solid rgb(218, 15, 8);
+  color: rgb(243, 7, 7);
+}
+.card-container {
+  overflow-y: scroll;
+}
