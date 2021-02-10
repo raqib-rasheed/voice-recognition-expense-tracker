@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
 import analyseNetValue from "../analyseNetValue";
 
-interface ITransaction {
+export interface ITransaction {
   type: string;
   category: string;
   amount: number;
@@ -15,10 +15,36 @@ export type Ttransactions = {
 export function addTransaction(
   newT: ITransaction,
   transactions: Ttransactions,
-  setterFn: Dispatch<SetStateAction<any>>
+  setterFn: Dispatch<SetStateAction<any>>,
+  data: {
+    incomeCategories: {
+      type: string;
+      amount: number;
+      color: string;
+    }[];
+    expenseCategories: {
+      type: string;
+      amount: number;
+      color: string;
+    }[];
+  },
+  setData: Dispatch<
+    SetStateAction<{
+      incomeCategories: {
+        type: string;
+        amount: number;
+        color: string;
+      }[];
+      expenseCategories: {
+        type: string;
+        amount: number;
+        color: string;
+      }[];
+    }>
+  >
 ) {
   let updatedTransactions = transactions?.transactions?.slice();
-  updatedTransactions.push(newT);
+  updatedTransactions.unshift(newT);
   setterFn({ transactions: updatedTransactions });
-  analyseNetValue(transactions);
+  analyseNetValue(transactions, data, setData);
 }

@@ -1,7 +1,6 @@
 import React from "react";
 
 import Chart from "./components/chart/Chart";
-import { Col, Row } from "antd";
 
 import "./App.css";
 import UsersArea from "./components/Main/UsersArea";
@@ -10,11 +9,11 @@ import { Provider } from "./context/Context";
 function App() {
   return (
     <Provider>
-      <Row className="wrapper">
-        <Chart title="Income" />
+      <div className="wrapper">
+        <Chart title="income" />
         <UsersArea />
-        <Chart title="Expense" />
-      </Row>
+        <Chart title="expense" />
+      </div>
     </Provider>
   );
 }

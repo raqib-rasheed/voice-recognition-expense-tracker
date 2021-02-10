@@ -1,5 +1,4 @@
 import React, { Dispatch, SetStateAction, useContext } from "react";
-import { DeleteOutlined, DollarCircleOutlined } from "@ant-design/icons";
 import removeTransaction from "./utils/removeTransaction";
 import { ExportTrackerContext } from "../../../context/Context";
 
@@ -28,10 +27,10 @@ export default function SingleTransaction() {
       {allTransactions?.transactions?.map((item) => {
         return (
           <div className="transaction-container" id={item.id}>
-            <DollarCircleOutlined id={item.id} className={item.type} />
+            <span id={item.id} className={item.type} />
             <h4 id={item.id}>{item.category}</h4>
             <span id={item.id}>{item.amount}</span>
-            <DeleteOutlined
+            <span
               id={item.id}
               onClick={() =>
                 removeTransaction(

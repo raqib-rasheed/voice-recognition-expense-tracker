@@ -1,4 +1,3 @@
-import { Card } from "antd";
 import React, { Dispatch, SetStateAction } from "react";
 
 import SingleTransaction from "./SingleTransaction";
@@ -16,12 +15,12 @@ const TransactionsContainer = (props: ITransaction) => {
   return (
     <>
       {transactions.length > 0 ? (
-        <Card
+        <div
           className="card-container"
           style={{ width: "100%", height: "5rem" }}
         >
           <SingleTransaction />
-        </Card>
+        </div>
       ) : (
         <></>
       )}

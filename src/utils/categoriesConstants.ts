@@ -56,10 +56,26 @@ export const resetCategories = () => {
   expenseCategories.forEach((c) => (c.amount = 0));
 };
 
-export const initialValue = {
+export const initialIncomeValue = {
   type: "income",
   category: "Business",
   amount: 0,
-  date: "dd-mm-yyyy",
-  id: uuidv4(),
+  date: "",
+  id: "",
+};
+
+export const initialExpenseValue = {
+  type: "expense",
+  category: "Bills",
+  amount: 0,
+  date: "",
+  id: "",
+};
+
+export const initialValue = {
+  type: "",
+  category: "",
+  amount: 0,
+  date: "",
+  id: "",
 };

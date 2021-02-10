@@ -1,29 +1,49 @@
-import { Col } from "antd";
-import React, { Dispatch, SetStateAction, useContext, useState } from "react";
+import React, { Dispatch, SetStateAction, useContext } from "react";
 import Inputs from "./Inputs";
 import TransactionsContainer from "./transactions/TransactionsContainer";
 import { ExportTrackerContext } from "./../../context/Context";
-import { v4 as uuidv4 } from "uuid";
+import { Card } from "react-bootstrap";
 
 export type TContextProps = {
   transactions: {
     transactions: [];
   };
   setTransactions: Dispatch<SetStateAction<{ incomes: []; expenses: [] }>>;
+  data: {
+    incomeCategories: {
+      type: string;
+      amount: number;
+      color: string;
+    }[];
+    expenseCategories: {
+      type: string;
+      amount: number;
+      color: string;
+    }[];
+  };
+  setData: Dispatch<
+    SetStateAction<{
+      incomeCategories: {
+        type: string;
+        amount: number;
+        color: string;
+      }[];
+      expenseCategories: {
+        type: string;
+        amount: number;
+        color: string;
+      }[];
+    }>
+  >;
 };
-
 export default function UsersArea() {
   const contextProps = useContext(ExportTrackerContext) as TContextProps;
   return (
     <>
-      <Col
-        className="transparent"
-        xs={{ span: 11, offset: 1 }}
-        lg={{ span: 6, offset: 2 }}
-      >
+      <Card className="users-area">
         <Inputs contextProps={contextProps} />
         <TransactionsContainer transactions={contextProps.transactions} />
-      </Col>
+      </Card>
     </>
   );
 }
