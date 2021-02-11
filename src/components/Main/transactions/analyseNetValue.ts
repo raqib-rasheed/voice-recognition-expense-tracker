@@ -1,8 +1,10 @@
 import { Dispatch, SetStateAction } from "react";
-import { Ttransactions } from "../transactions/utils/addTransaction";
+import { ITransaction } from "../../../types/transactions-types";
+
+// import { Ttransactions } from "../transactions/utils/addTransaction";
 
 export default function analyseNetValue(
-  transactions: Ttransactions,
+  transactions: ITransaction[],
   data: {
     incomeCategories: {
       type: string;
@@ -30,9 +32,9 @@ export default function analyseNetValue(
     }>
   >
 ) {
-  const { transactions: allTransactions } = transactions;
+  // const { transactions: allTransactions } = transactions;
   const { incomeCategories, expenseCategories } = data;
-  const result = allTransactions.reduce(
+  const result = transactions.reduce(
     (acc, crr) => {
       if (crr.type === "income") {
         acc.incomeCategories.forEach((el) => {

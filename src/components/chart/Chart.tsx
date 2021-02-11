@@ -1,7 +1,7 @@
 import React, { useContext, useMemo } from "react";
 import { Doughnut } from "react-chartjs-2";
 import { ExportTrackerContext } from "../../context/Context";
-import { TContextProps } from "../Main/UsersArea";
+import { TContextProps } from "../../types/transactions-types";
 
 export type PropVal = {
   title: string;

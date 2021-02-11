@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Card } from "react-bootstrap";
+import { TContextProps } from "../../types/transactions-types";
 
 import {
   incomeCategories,
@@ -7,7 +8,6 @@ import {
 } from "../../utils/categoriesConstants";
 import { initialIncomeValue } from "../../utils/categoriesConstants";
 import { handleChange, handleSubmit } from "../../utils/util-functions";
-import { TContextProps } from "./UsersArea";
 
 export type ITransaction = {
   contextProps: TContextProps;

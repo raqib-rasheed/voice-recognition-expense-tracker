@@ -1,17 +1,19 @@
 import React, { Dispatch, SetStateAction } from "react";
+import { ITransaction } from "../../../types/transactions-types";
 
 import SingleTransaction from "./SingleTransaction";
 
-export type ITransaction = {
+export type ITransactionProps = {
   transactions: {
     transactions: [];
   };
 };
 
-const TransactionsContainer = (props: ITransaction) => {
+const TransactionsContainer = (props: ITransactionProps) => {
   const {
     transactions: { transactions },
   } = props;
+
   return (
     <>
       {transactions.length > 0 ? (
