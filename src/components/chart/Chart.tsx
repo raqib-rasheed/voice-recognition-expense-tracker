@@ -37,9 +37,14 @@ const Chart = (props: PropVal) => {
 
   return (
     <>
-      <Col md={3} className="">
+      <Col
+        xs={12}
+        sm={6}
+        lg={title === "income" ? { order: "first" } : { order: "last" }}
+        className="my-2"
+      >
         <div className="chart-container">
-          <h6>{`Chart For ${title}`}</h6>
+          <h5 className="text-center py-3">{`Chart For ${title}`}</h5>
           <Doughnut
             data={state}
             options={{

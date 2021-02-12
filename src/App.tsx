@@ -12,7 +12,7 @@ function App() {
   return (
     <Provider>
       <Container className="wrapper">
-        <Row>
+        <Row lg={3}>
           <Chart title="income" />
           <UsersArea />
           <Chart title="expense" />

@@ -1,7 +1,7 @@
 :root,
 html,
 body {
-  height: 100vh;
+  height: auto;
 }
 body {
   background: linear-gradient(
@@ -54,12 +54,10 @@ select:active {
   height: 22rem;
 }
 
-@media (max-width: 760px) {
-  html {
-    height: auto;
+@media (min-width: 991px) {
+  body {
+    height: 100vh;
   }
-}
-@media (min-width: 760px) {
   .wrapper {
     height: 100vh;
     display: flex;
