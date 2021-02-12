@@ -1,4 +1,5 @@
 import React, { useContext, useMemo } from "react";
+import { Col } from "react-bootstrap";
 import { Doughnut } from "react-chartjs-2";
 import { ExportTrackerContext } from "../../context/Context";
 import { TContextProps } from "../../types/transactions-types";
@@ -36,25 +37,23 @@ const Chart = (props: PropVal) => {
 
   return (
     <>
-      <div className="chart-container">
-        <h4>{`Chart For ${title}`}</h4>
-        <Doughnut
-          data={state}
-          options={{
-            title: {
-              display: true,
-              fontSize: 20,
-            },
-            fill: false,
-            responsive: true,
-            maintainAspectRatio: false,
-            legend: {
-              display: true,
-              position: "right",
-            },
-          }}
-        />
-      </div>
+      <Col md={3} className="">
+        <div className="chart-container">
+          <h6>{`Chart For ${title}`}</h6>
+          <Doughnut
+            data={state}
+            options={{
+              fill: false,
+              responsive: true,
+              maintainAspectRatio: false,
+              legend: {
+                display: true,
+                position: "right",
+              },
+            }}
+          />
+        </div>
+      </Col>
     </>
   );
 };
