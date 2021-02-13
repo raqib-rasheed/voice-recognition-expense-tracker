@@ -1,45 +1,43 @@
-import React, { Dispatch, SetStateAction, useContext } from "react";
+import React, { useContext } from "react";
 import removeTransaction from "./utils/removeTransaction";
 import { ExportTrackerContext } from "../../../context/Context";
-
-export type TtransactionValues = {
-  type: string;
-  category: string;
-  amount: number;
-  date: string;
-  id: string;
-};
-
-interface ITransactions {
-  transactions: {
-    transactions: TtransactionValues[];
-  };
-  setTransactions: Dispatch<SetStateAction<any>>;
-}
+import { TContextProps } from "../../../types/transactions-types";
+import { FaTrash } from "react-icons/fa";
 
 export default function SingleTransaction() {
-  const { transactions: allTransactions, setTransactions } = useContext(
-    ExportTrackerContext
-  ) as ITransactions;
-
+  const {
+    transactions: allTransactions,
+    setTransactions,
+    data,
+    setData,
+  } = useContext(ExportTrackerContext) as TContextProps;
+  console.log(allTransactions);
   return (
     <>
       {allTransactions?.transactions?.map((item) => {
         return (
-          <div className="transaction-container" id={item.id}>
-            <span id={item.id} className={item.type} />
-            <h4 id={item.id}>{item.category}</h4>
-            <span id={item.id}>{item.amount}</span>
-            <span
+          <div
+            className={`round-corners single-transaction-container ${item.type}`}
+            id={item.id}
+          >
+            <div className="transaction-category">
+              <span id={item.id}>{item.category}</span>
+            </div>
+            <div className="transaction-amount">
+              <span id={item.id}>{item.amount}</span>
+            </div>
+            <FaTrash
               id={item.id}
               onClick={() =>
                 removeTransaction(
                   item.id,
                   allTransactions.transactions,
-                  setTransactions
+                  setTransactions,
+                  data,
+                  setData
                 )
               }
-            />
+            ></FaTrash>
           </div>
         );
       })}

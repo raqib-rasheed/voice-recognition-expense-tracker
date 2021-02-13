@@ -5,7 +5,7 @@ import SingleTransaction from "./SingleTransaction";
 
 export type ITransactionProps = {
   transactions: {
-    transactions: [];
+    transactions: ITransaction[];
   };
 };
 
@@ -18,8 +18,8 @@ const TransactionsContainer = (props: ITransactionProps) => {
     <>
       {transactions.length > 0 ? (
         <div
-          className="card-container"
-          style={{ width: "100%", height: "5rem" }}
+          className="transactions-container"
+          style={{ width: "100%", height: "6.35rem" }}
         >
           <SingleTransaction />
         </div>

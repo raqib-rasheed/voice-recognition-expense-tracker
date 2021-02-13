@@ -1,38 +1,13 @@
-import { Dispatch, SetStateAction } from "react";
-import { ITransaction } from "../../../types/transactions-types";
-
-// import { Ttransactions } from "../transactions/utils/addTransaction";
+import {
+  IAnalyzedTransactions,
+  ITransaction,
+} from "../../../types/transactions-types";
 
 export default function analyseNetValue(
   transactions: ITransaction[],
-  data: {
-    incomeCategories: {
-      type: string;
-      amount: number;
-      color: string;
-    }[];
-    expenseCategories: {
-      type: string;
-      amount: number;
-      color: string;
-    }[];
-  },
-  setData: Dispatch<
-    SetStateAction<{
-      incomeCategories: {
-        type: string;
-        amount: number;
-        color: string;
-      }[];
-      expenseCategories: {
-        type: string;
-        amount: number;
-        color: string;
-      }[];
-    }>
-  >
+  data: IAnalyzedTransactions,
+  setData: React.Dispatch<React.SetStateAction<IAnalyzedTransactions>>
 ) {
-  // const { transactions: allTransactions } = transactions;
   const { incomeCategories, expenseCategories } = data;
   const result = transactions.reduce(
     (acc, crr) => {

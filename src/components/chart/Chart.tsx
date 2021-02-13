@@ -18,7 +18,6 @@ const Chart = (props: PropVal) => {
     title === "income" ? data.incomeCategories : data.expenseCategories;
 
   const state = useMemo(() => {
-    console.log(data);
     return {
       labels: categories.map((el) => el.type),
       datasets: [
@@ -33,7 +32,7 @@ const Chart = (props: PropVal) => {
         },
       ],
     };
-  }, [categories, data, title]);
+  }, [categories, title]);
 
   return (
     <>
@@ -41,9 +40,9 @@ const Chart = (props: PropVal) => {
         xs={12}
         sm={6}
         lg={title === "income" ? { order: "first" } : { order: "last" }}
-        className="my-2"
+        className="mb-3"
       >
-        <div className="chart-container">
+        <div className={`chart-container ${title} round-corners`}>
           <h5 className="text-center py-3">{`Chart For ${title}`}</h5>
           <Doughnut
             data={state}

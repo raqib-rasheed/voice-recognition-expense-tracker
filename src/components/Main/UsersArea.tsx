@@ -9,8 +9,8 @@ export default function UsersArea() {
   const contextProps = useContext(ExportTrackerContext) as TContextProps;
   return (
     <>
-      <Col xs={{ order: "first" }} sm={12} className="my-2">
-        <Card className="users-area">
+      <Col xs={{ order: "first" }} sm={12} className="mb-2">
+        <Card className="round-corners ">
           <Inputs contextProps={contextProps} />
           <TransactionsContainer transactions={contextProps.transactions} />
         </Card>

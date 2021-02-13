@@ -15,6 +15,5 @@ export function addTransaction(
   let updatedTransactions = transactions.slice();
   updatedTransactions.unshift(newT);
   setTransactions({ transactions: updatedTransactions });
-  analyseNetValue(transactions, data, setData);
-  console.log(transactions);
+  analyseNetValue(updatedTransactions, data, setData);
 }
