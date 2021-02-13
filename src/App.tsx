@@ -1,16 +1,18 @@
 import React from "react";
-
-import Chart from "./components/chart/Chart";
-
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-import UsersArea from "./components/Main/UsersArea";
-import { Provider } from "./context/Context";
 import { Container, Row } from "react-bootstrap";
+import {
+  PushToTalkButton,
+  PushToTalkButtonContainer,
+} from "@speechly/react-ui";
+
+import Chart from "./components/chart/Chart";
+import UsersArea from "./components/Main/UsersArea";
 
 function App() {
   return (
-    <Provider>
+    <>
       <Container className="wrapper">
         <Row lg={3}>
           <Chart title="income" />
@@ -18,17 +20,13 @@ function App() {
           <Chart title="expense" />
         </Row>
       </Container>
-    </Provider>
+      <div className="d-flex justify-content-center">
+        <PushToTalkButtonContainer>
+          <PushToTalkButton size="5rem" captureKey=" " />
+        </PushToTalkButtonContainer>
+      </div>
+    </>
   );
 }
 
 export default App;
-
-// <Row>
-//   <Col md={4}>md=4</Col>
-//   <Col md={{ span: 4, offset: 4 }}>{`md={{ span: 4, offset: 4 }}`}</Col>
-// </Row>
-// <Row>
-//   <Col md={{ span: 3, offset: 3 }}>{`md={{ span: 3, offset: 3 }}`}</Col>
-//   <Col md={{ span: 3, offset: 3 }}>{`md={{ span: 3, offset: 3 }}`}</Col>
-// </Row>

@@ -11,7 +11,6 @@ export default function SingleTransaction() {
     data,
     setData,
   } = useContext(ExportTrackerContext) as TContextProps;
-  console.log(allTransactions);
   return (
     <>
       {allTransactions?.transactions?.map((item) => {

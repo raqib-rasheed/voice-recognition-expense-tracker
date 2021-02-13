@@ -1,13 +1,16 @@
-import React, { useState } from "react";
-import { Card, Form } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { Card } from "react-bootstrap";
 import { TContextProps } from "../../types/transactions-types";
+import { useSpeechContext } from "@speechly/react-client";
 
 import {
   incomeCategories,
   expenseCategories,
 } from "../../utils/categoriesConstants";
 import { initialIncomeValue } from "../../utils/categoriesConstants";
-import { handleChange, handleSubmit } from "../../utils/util-functions";
+
+import createTransactionWithSpeechly from "./transactions/utils/createTransactionSpeechly";
+import FormGroupAndCardBody from "./FormGroupAndCardBody";
 
 export type ITransactionContextProps = {
   contextProps: TContextProps;
@@ -20,101 +23,95 @@ export default function Inputs(props: ITransactionContextProps) {
     initialIncomeValue
   );
 
+  const { segment } = useSpeechContext();
+
+  useEffect(() => {
+    if (segment) {
+      if (segment.intent.intent === "add_expense") {
+        setTransactionToCreate({ ...transactionToCreate, type: "Expense" });
+      } else if (segment.intent.intent === "add_income") {
+        setTransactionToCreate({ ...transactionToCreate, type: "Income" });
+      } else if (
+        segment.isFinal &&
+        segment.intent.intent === "create_transaction"
+      ) {
+        return createTransactionWithSpeechly(
+          transactionToCreate,
+          setTransactionToCreate,
+          contextProps
+        );
+      } else if (
+        segment.isFinal &&
+        segment.intent.intent === "cancel_transaction"
+      ) {
+        return setTransactionToCreate(initialIncomeValue);
+      }
+
+      segment.entities.forEach((s) => {
+        const type = `${s.value.charAt(0)}${s.value.slice(1).toLowerCase()}`;
+
+        switch (s.type) {
+          case "amount":
+            setTransactionToCreate({
+              ...transactionToCreate,
+            });
+            break;
+          case "category":
+            if (incomeCategories.map((iC) => iC.type).includes(type)) {
+              setTransactionToCreate({
+                ...transactionToCreate,
+                category: "Income",
+                type,
+              });
+            } else if (expenseCategories.map((iC) => iC.type).includes(type)) {
+              setTransactionToCreate({
+                ...transactionToCreate,
+                category: "Expense",
+                type,
+              });
+            }
+            break;
+          case "date":
+            setTransactionToCreate({ ...transactionToCreate, date: s.value });
+            break;
+          default:
+            break;
+        }
+      });
+
+      if (
+        segment.isFinal &&
+        transactionToCreate.amount &&
+        transactionToCreate.category &&
+        transactionToCreate.type &&
+        transactionToCreate.date
+      ) {
+        createTransactionWithSpeechly(
+          transactionToCreate,
+          setTransactionToCreate,
+          contextProps
+        );
+      }
+    }
+  }, [segment]);
   return (
     <>
       <Card.Body className="py-1">
         <h3 className="text-center">Expense Tracker</h3>
-        <h6 className="text-muted text-center mb-3">Powered by speechly</h6>
-        <p>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Explicabo
-          provident aliate!
-        </p>
+        <h6 className="text-muted text-center mb-3">Powered by Speechly</h6>
         <hr />
-        <div className="form-group">
-          <Form
-            onSubmit={(e) =>
-              handleSubmit(
-                e,
-                transactionToCreate,
-                setTransactionToCreate,
-                contextProps
-              )
-            }
-          >
-            <div className="d-flex justify-content-between">
-              <Form.Group>
-                <Form.Label htmlFor="type">Type</Form.Label>
-                <Form.Control
-                  as="select"
-                  value={transactionToCreate.type}
-                  onChange={(e) =>
-                    handleChange(e, transactionToCreate, setTransactionToCreate)
-                  }
-                  id="type"
-                  required
-                >
-                  <option style={{ display: "none" }}></option>
-                  <option value="income">Income</option>
-                  <option value="expense">Expense</option>
-                </Form.Control>
-              </Form.Group>
-              <Form.Group>
-                <Form.Label htmlFor="amount">Amount</Form.Label>
-                <Form.Control
-                  as="input"
-                  value={transactionToCreate.amount}
-                  onChange={(e) =>
-                    handleChange(e, transactionToCreate, setTransactionToCreate)
-                  }
-                  type="number"
-                  id="amount"
-                  required
-                ></Form.Control>
-              </Form.Group>
+        <p>
+          {segment && (
+            <div className="segment">
+              {segment.words.map((w) => w.value).join(" ")}
             </div>
-            <Form.Group>
-              <Form.Label htmlFor="category">Category</Form.Label>
-              <Form.Control
-                as="select"
-                value={transactionToCreate.category}
-                onChange={(e) =>
-                  handleChange(e, transactionToCreate, setTransactionToCreate)
-                }
-                id="category"
-                required
-              >
-                <option style={{ display: "none" }}></option>
-                {transactionToCreate.type === "income"
-                  ? incomeCategories.map((c) => (
-                      <option value={c.type}>{c.type}</option>
-                    ))
-                  : expenseCategories.map((c) => (
-                      <option value={c.type}>{c.type}</option>
-                    ))}
-              </Form.Control>
-            </Form.Group>
-            <Form.Group>
-              <label htmlFor="">Date</label>
-              <Form.Control
-                value={transactionToCreate.date}
-                type="date"
-                onChange={(e) =>
-                  handleChange(e, transactionToCreate, setTransactionToCreate)
-                }
-                id="date"
-                // required
-              />
-            </Form.Group>
-            <div className="d-flex justify-content-center">
-              <button
-                className="btn px-4 btn-outline-primary display-center"
-                type="submit"
-              >
-                Create
-              </button>
-            </div>
-          </Form>
-        </div>
+          )}
+        </p>
+        <FormGroupAndCardBody
+          transactionToCreate={transactionToCreate}
+          setTransactionToCreate={setTransactionToCreate}
+          contextProps={contextProps}
+        />
       </Card.Body>
     </>
   );

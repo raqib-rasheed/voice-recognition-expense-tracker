@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from "react";
+import React from "react";
 import { ITransaction } from "../../../types/transactions-types";
 
 import SingleTransaction from "./SingleTransaction";

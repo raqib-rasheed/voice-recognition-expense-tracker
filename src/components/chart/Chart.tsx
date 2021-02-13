@@ -32,7 +32,7 @@ const Chart = (props: PropVal) => {
         },
       ],
     };
-  }, [categories, title]);
+  }, [categories, data, title]);
 
   return (
     <>

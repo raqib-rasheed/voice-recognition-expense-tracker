@@ -12,10 +12,7 @@ export default function removeTransaction(
   data: IAnalyzedTransactions,
   setData: React.Dispatch<React.SetStateAction<IAnalyzedTransactions>>
 ) {
-  const updatedTransactions = transactions.filter((item) => {
-    console.log(item);
-    return item.id !== id;
-  });
+  const updatedTransactions = transactions.filter((item) => item.id !== id);
   setterFn({ transactions: updatedTransactions });
   analyseNetValue(transactions, data, setData);
 }

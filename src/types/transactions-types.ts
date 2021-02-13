@@ -23,9 +23,15 @@ export interface IAnalyzedTransactions {
 
 export type TContextProps = {
   transactions: {
-    transactions: [];
+    transactions: ITransaction[];
   };
   setTransactions: Dispatch<any>;
   data: IAnalyzedTransactions;
   setData: React.Dispatch<React.SetStateAction<IAnalyzedTransactions>>;
 };
+
+export interface IFormGroupAndCardBodyProp {
+  transactionToCreate: ITransaction;
+  setTransactionToCreate: React.Dispatch<React.SetStateAction<ITransaction>>;
+  contextProps: TContextProps;
+}
